@@ -1,0 +1,30 @@
+---
+- name: debian
+  hosts: all
+  become: yes
+
+  gather_facts: False
+  pre_tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      changed_when: False
+  
+  tasks:
+    - name: Run apt-get update and apt-get upgrade
+      apt:
+        update-cache: yes
+        upgrade: dist
+    - name: Install packages
+      apt: 
+        name: "{{ item }}"
+        update_cache: true
+        state: present
+      with_items:
+        - i3 
+        - feh 
+        - dunst 
+        - scrot
+        - git 
+        - vim 
+        - keepassx 
+        - arandr
