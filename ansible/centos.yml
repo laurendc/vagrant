@@ -1,0 +1,35 @@
+---
+- hosts: all
+  
+  tasks:
+    - name: Add epel repo
+      yum:
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+        state: present
+    
+    - name: Import epel gpg key
+      rpm_key:
+        key: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
+        state: present
+
+    - name: Update all packages
+      yum:
+        name: "*"
+        state: latest
+    
+    - name: Install packages
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - git
+        - vim 
+        - unzip 
+        - wget
+        - dejavu-sans-fonts 
+        - dejavu-sans-mono-fonts
+        - dejavu-serif-fonts
+        - i3 
+        - xterm
+        - dmenu
+        - keepassx
