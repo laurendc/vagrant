@@ -20,5 +20,8 @@ Vagrant.configure("2") do |config|
       v.memory = "1024"
       v.cpus = "1"
     end
+    debian.vm.provision "ansible" do |ansible|
+      ansible.playbook = "ansible/debian.yml"
+    end
   end
 end
