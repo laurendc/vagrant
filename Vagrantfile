@@ -22,6 +22,7 @@ Vagrant.configure("2") do |config|
     end
     debian.vm.provision "ansible" do |ansible|
       ansible.playbook = "ansible/debian.yml"
+      ansible.verbose = "vvv"
     end
   end
 end
